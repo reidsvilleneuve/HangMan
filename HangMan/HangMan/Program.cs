@@ -331,7 +331,7 @@ namespace Hangman
             if (numGuessesLeft == 9)
                 wordBase += "   / \\";                         //Bottom of figure on win condition.
 
-                return stickFigure[numGuessesLeft] + wordBase;
+            return stickFigure[numGuessesLeft] + wordBase;
         }
     }
 }
