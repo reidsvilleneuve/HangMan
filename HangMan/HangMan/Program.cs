@@ -25,8 +25,11 @@ namespace Hangman
         static void Hangman()
         {
             // initializing variables
-            List<string> wordList = new List<string>();
-            wordList = "apple blackbird pear computer driver library water backpack".ToUpper().Split().ToList();
+            List<string> wordList = new List<string>(); //Easily adaptable to accept a file to generate the list.
+            wordList = ("apple blackbird pear computer driver library water backpack keyboard notebook karate nightstand " +
+                "sword explain feelings running walking striding target shade sand bacteria virus elephant tiger atomic " +
+                "padding furball somersault backflip cartwheel brutalize demoralize decimate eviscerate").ToUpper().Split().ToList();
+
             // when playing is set to false, the function will end
             bool playing = true;
             Random rng = new Random();
@@ -234,6 +237,7 @@ namespace Hangman
         {
             //String literals take all spaces into account. Formatting will be off for this array.
             //Array will correspond to numGuessesLeft.
+            
 
             //Generate upper part of the stand, and the stick figure itself.
             string[] stickFigure = {@"
@@ -307,24 +311,35 @@ namespace Hangman
 
             string wordBase = "\n    |\n    |"; // \n for new line. Will be procedurally generated from here.
             
-            for (int i = 0; i < maskedWord.Length; i++)        //Crest of base
+            //Crest of base. 1 "_" per character in masked.
+
+            for (int i = 0; i < maskedWord.Length; i++)
                 wordBase += "_";
 
-            wordBase += "_\n    |";                            //Top of base
+            //Top of base. 1 addtional _ for crest, spacing for lining it up, walls, and one space per character in maskedWord.
+            //Top of figure also drawn here on win condition.
+
+            wordBase += "_\n    |";
+
             for (int i = 0; i < maskedWord.Length; i++)        
                 wordBase += " ";
+
             if(numGuessesLeft == 9)
                 wordBase += " |   \\o/";                       //Top of figure on win condition. Extra \ needed
             else                                               //for proper formatting
                 wordBase += " |";                              //Same line, but NOT on victory - no figure generated.
 
-            wordBase += "\n    | " + maskedWord + "|";         //Middle of base
+            //Middle of base. Space out correctly, and insert maskedWord / walls.
+
+            wordBase += "\n    | " + maskedWord + "|";
             if (numGuessesLeft == 9)
                 wordBase += "    |\n";                         //Middle of figure on victory condition.
             else
                 wordBase += "\n";
 
-            wordBase += "    |";                               //Bottom of base
+            //Bottom of base. Space correctly, insert side, insert "_" for length of maskedWord
+
+            wordBase += "    |";
             for (int i = 0; i < maskedWord.Length; i++)
                 wordBase += "_";
             wordBase += "_|";
